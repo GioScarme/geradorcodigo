@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gerador de código</title>
+</head>
+<body>
+<h1>Classe Java Gerada</h1>
+<p>Pacote: <span th:text="${classJava.nomePackage}"></span></p>
+<p>Nome da classe: <span th:text="${classJava.nomeClasse}"></span></p>
+
+<h2>Campos:</h2>
+<ul>
+    <li th:each="field : ${classJava.campos}" th:text="${field}"></li>
+</ul>
+
+<h2>Métodos:</h2>
+<ul>
+    <li th:each="method : ${classJava.metodos}" th:text="${method}"></li>
+</ul>
+
+</body>
+</html>
