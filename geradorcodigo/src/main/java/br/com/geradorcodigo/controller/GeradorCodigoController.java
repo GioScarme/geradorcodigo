@@ -63,7 +63,7 @@ public class GeradorCodigoController {
     public ResponseEntity<String> gerarCodigo(@RequestBody ClassJava classJava) {
 
         // Chama o serviço de geração de código para gerar o código-fonte da classe
-        String codigo = geradorCodigoService.gerarCodigo(classJava.getNomeClasse(), classJava.getAtributos());
+        String codigo = geradorCodigoService.gerarCodigo(classJava);
 
         // Retorna o resultado como um arquivo de texto
         HttpHeaders headers = new HttpHeaders();

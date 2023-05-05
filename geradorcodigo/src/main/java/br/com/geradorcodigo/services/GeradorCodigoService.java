@@ -1,6 +1,7 @@
 package br.com.geradorcodigo.services;
 
 import br.com.geradorcodigo.classeBase.Atributo;
+import br.com.geradorcodigo.classeBase.ClassJava;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
@@ -14,13 +15,11 @@ public class GeradorCodigoService {
     private SpringTemplateEngine templateEngine;
 
 
-    public String gerarCodigo(String nomeClasse, List<Atributo> atributos) {
+    public String gerarCodigo(ClassJava classJava) {
 
         // Cria um contexto Thymeleaf e adiciona as variáveis de modelo necessárias
         Context context = new Context();
-        context.setVariable("nomeClasse", nomeClasse);
-        context.setVariable("atributos", atributos);
-
+        context.setVariable("classJava", classJava);
 
         // Processa o template e retorna o resultado como uma string
         return templateEngine.process("TemplateClasse", context);
