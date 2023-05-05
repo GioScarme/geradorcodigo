@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Gerador de código</title>
+    <meta charset="UTF-8">
+    <title>Classe Java</title>
 </head>
 <body>
-<h1>Classe Java Gerada</h1>
-<p>Pacote: <span th:text="${classJava.nomePackage}"></span></p>
-<p>Nome da classe: <span th:text="${classJava.nomeClasse}"></span></p>
+<h1>Classe Java gerada:</h1>
+<pre><code>
+public class <span th:text="${classJava.nomeClasse}"></span> {
+    <span th:each="field : ${classJava.atributos}">
+        <span th:text="${field.tipo}"></span> <span th:text="${field.nome}"></span>;
+    </span>
 
-<h2>Campos:</h2>
-<ul>
-    <li th:each="field : ${classJava.campos}" th:text="${field}"></li>
-</ul>
+    public <span th:text="${classJava.nomeClasse}"></span>() {
+        // construtor vazio
+    }
 
-<h2>Métodos:</h2>
-<ul>
-    <li th:each="method : ${classJava.metodos}" th:text="${method}"></li>
-</ul>
+    <span th:each="field : ${classJava.atributos}">
+        public <span th:text="${field.tipo}"></span> get<span th:text="${#strings.capitalize(field.nome)}"></span>() {
+            return <span th:text="${field.nome}"></span>;
+        }
 
+        public void set<span th:text="${#strings.capitalize(field.nome)}"></span>(<span th:text="${field.tipo}"></span> <span th:text="${field.nome}"></span>) {
+            this.<span th:text="${field.nome}"></span> = <span th:text="${field.nome}"></span>;
+        }
+    </span>
+}
+    </code></pre>
 </body>
 </html>
