@@ -1,4 +1,4 @@
-package br.com.geradorcodigo.classeBase;
+package br.com.geradorcodigo.entity;
 
 public class Atributo {
     private String nome;
