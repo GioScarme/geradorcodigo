@@ -66,10 +66,6 @@ public class GeradorCodigoService {
     public String gerarClasseRepository(ClassJava classJava) {
         StringBuilder sb = new StringBuilder();
 
-        // Adiciona imports necessários
-        sb.append("import org.springframework.data.jpa.repository.JpaRepository;\n");
-        sb.append("import org.springframework.stereotype.Repository;\n");
-
         // Adiciona a annotation @Repository
         sb.append("\n@Repository\n");
 
@@ -84,17 +80,17 @@ public class GeradorCodigoService {
         sb.append("        String query = \"SELECT * FROM ").append(classJava.getNomeClasse()).append("\";\n");
         sb.append("        TypedQuery<").append(classJava.getNomeClasse()).append("> query = entityManager.createQuery(query, ").append(classJava.getNomeClasse()).append(".class);\n");
         sb.append("        return query.getResultList();\n");
-        sb.append("}\n");
+        sb.append("    }\n");
 
         //sb.append("    @Override\n");
         sb.append("    public Optional<").append(classJava.getNomeClasse()).append("> findById(Long id) {\n");
         sb.append("        return repository.findById(id);\n");
-        sb.append("}\n");
+        sb.append("    }\n");
 
         //sb.append("    @Override\n");
         sb.append("    public ").append(classJava.getNomeClasse()).append(" save(").append(classJava.getNomeClasse()).append(" ").append(classJava.getNomeClasse().toLowerCase()).append(") {\n");
         sb.append("        return ").append(classJava.getNomeClasse().toLowerCase()).append("Repository.save(").append(classJava.getNomeClasse().toLowerCase()).append(");\n");
-        sb.append("}\n");
+        sb.append("    }\n");
 
         sb.append("    public void delete(Long id) {\n");
         sb.append("        ").append(classJava.getNomeClasse()).append(" ").append("id").append(" = findById(id);\n");
@@ -113,15 +109,8 @@ public class GeradorCodigoService {
         StringBuilder sb = new StringBuilder();
 
         // Adiciona o cabeçalho da classe
-        sb.append("package com.example.demo.controller;\n\n");
-        sb.append("import java.util.List;\n\n");
-        sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
-        sb.append("import org.springframework.http.HttpStatus;\n");
-        sb.append("import org.springframework.http.ResponseEntity;\n");
-        sb.append("import org.springframework.web.bind.annotation.*;\n\n");
-        sb.append("import com.example.demo.model.").append(classJava.getNomeClasse()).append(";\n");
-        sb.append("import com.example.demo.repository.").append(classJava.getNomeClasse()).append("Repository;\n\n");
-        sb.append("@RestController\n");
+
+        sb.append("@Controller\n");
         sb.append("@RequestMapping(\"/").append(classJava.getNomeClasse().toLowerCase()).append("\")\n");
         sb.append("public class ").append(classJava.getNomeClasse()).append("Controller {\n\n");
 
@@ -154,23 +143,23 @@ public class GeradorCodigoService {
         sb.append("    }\n\n");
 
         // Adiciona o método PUT para atualizar uma entidade existente
-        sb.append("@PutMapping(\"/{id}\")\n");
-        sb.append("public ResponseEntity<").append(classJava.getNomeClasse()).append("> atualizar").append(classJava.getNomeClasse()).append("(@PathVariable Long id, @RequestBody ").append(classJava.getNomeClasse()).append(" novo").append(classJava.getNomeClasse()).append(") {\n");
-        sb.append("    Optional<").append(classJava.getNomeClasse()).append("> ").append(classJava.getNomeClasse().toLowerCase()).append(" = ").append(classJava.getNomeClasse().toLowerCase()).append("Repository.findById(id);\n");
-        sb.append("    if (").append(classJava.getNomeClasse().toLowerCase()).append(".isPresent()) {\n");
-        sb.append("        ").append(classJava.getNomeClasse()).append(" ").append(classJava.getNomeClasse().toLowerCase()).append("Salvo = ").append(classJava.getNomeClasse().toLowerCase()).append(".get();\n");
+        sb.append("    @PutMapping(\"/{id}\")\n");
+        sb.append("    public ResponseEntity<").append(classJava.getNomeClasse()).append("> atualizar").append(classJava.getNomeClasse()).append("(@PathVariable Long id, @RequestBody ").append(classJava.getNomeClasse()).append(" novo").append(classJava.getNomeClasse()).append(") {\n");
+        sb.append("        Optional<").append(classJava.getNomeClasse()).append("> ").append(classJava.getNomeClasse().toLowerCase()).append(" = ").append(classJava.getNomeClasse().toLowerCase()).append("Repository.findById(id);\n");
+        sb.append("        if (").append(classJava.getNomeClasse().toLowerCase()).append(".isPresent()) {\n");
+        sb.append("            ").append(classJava.getNomeClasse()).append(" ").append(classJava.getNomeClasse().toLowerCase()).append("Salvo = ").append(classJava.getNomeClasse().toLowerCase()).append(".get();\n");
 
         for (Atributo atributo : classJava.getAtributos()) {
-            sb.append("        ").append("if (novo").append(classJava.getNomeClasse()).append(".").append(atributo.getNome()).append("() != null) {\n");
-            sb.append("            ").append(classJava.getNomeClasse().toLowerCase()).append("Salvo.set").append(capitalizeFirstLetter(atributo.getNome())).append("(novo").append(classJava.getNomeClasse()).append(".").append(atributo.getNome()).append("());\n");
-            sb.append("        }\n");
+            sb.append("            ").append("if (novo").append(classJava.getNomeClasse()).append(".").append(atributo.getNome()).append("() != null) {\n");
+            sb.append("                ").append(classJava.getNomeClasse().toLowerCase()).append("Salvo.set").append(capitalizeFirstLetter(atributo.getNome())).append("(novo").append(classJava.getNomeClasse()).append(".").append(atributo.getNome()).append("());\n");
+            sb.append("            }\n");
         }
 
-        sb.append("        ").append(classJava.getNomeClasse()).append(" ").append(classJava.getNomeClasse().toLowerCase()).append("Atualizado = ").append(classJava.getNomeClasse().toLowerCase()).append("Repository.save(").append(classJava.getNomeClasse().toLowerCase()).append("Salvo);\n");
-        sb.append("        return ResponseEntity.ok(").append(classJava.getNomeClasse().toLowerCase()).append("Atualizado);\n");
+        sb.append("            ").append(classJava.getNomeClasse()).append(" ").append(classJava.getNomeClasse().toLowerCase()).append("Atualizado = ").append(classJava.getNomeClasse().toLowerCase()).append("Repository.save(").append(classJava.getNomeClasse().toLowerCase()).append("Salvo);\n");
+        sb.append("            return ResponseEntity.ok(").append(classJava.getNomeClasse().toLowerCase()).append("Atualizado);\n");
+        sb.append("        }\n");
+        sb.append("        return ResponseEntity.notFound().build();\n");
         sb.append("    }\n");
-        sb.append("    return ResponseEntity.notFound().build();\n");
-        sb.append("}\n");
 
         return sb.toString();
 
@@ -179,11 +168,6 @@ public class GeradorCodigoService {
     public String gerarClasseService(ClassJava classJava) {
         StringBuilder sb = new StringBuilder();
 
-        // Import the necessary classes
-        sb.append("import org.springframework.stereotype.Service;\n");
-        sb.append("import org.springframework.beans.factory.annotation.Autowired;\n\n");
-
-        // Generate the code using string concatenation
         sb.append("@Service\n");
         sb.append("public class ").append(classJava.getNomeClasse()).append("Service {\n\n");
         sb.append("    @Autowired\n");
@@ -205,10 +189,12 @@ public class GeradorCodigoService {
         return sb.toString();
     }
 
+    // Método usado para converter o primeiro caractere de uma string em minúsculo
     private String lowercaseFirstLetter(String s) {
         return s.substring(0, 1).toLowerCase() + s.substring(1);
     }
 
+    //Método usado para transformar a primeira letra de uma string em maiúscula
     public static String capitalizeFirstLetter(String string) {
         if (string == null || string.isEmpty()) {
             return string;
